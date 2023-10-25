@@ -29,40 +29,12 @@ public class DBOperations {
 
     /**
      * Create tables
+     * @param query SQL query to create a table in the database
      */
-    public void createTables() {
+    public void createTables(String query) {
         try {
-            String sql1 = "CREATE TABLE IF NOT EXISTS Fournisseurs (" +
-                    "CodeFournisseur INT NOT NULL PRIMARY KEY," +
-                    "Nom VARCHAR(50) NOT NULL," +
-                    "Adresse VARCHAR(50) NOT NULL," +
-                    "Ville VARCHAR(50) NOT NULL" +
-                    ")";
-            statement.executeUpdate(sql1);
-            System.out.println("Table Fournisseurs created successfully.");
-
-
-            String sql2 = "CREATE TABLE IF NOT EXISTS Produits (" +
-                    "CodeProduit INT NOT NULL PRIMARY KEY," +
-                    "Type VARCHAR(50) NOT NULL," +
-                    "Marque VARCHAR(50) NOT NULL," +
-                    "Modèle VARCHAR(50) NOT NULL" +
-                    ")";
-
-            statement.executeUpdate(sql2);
-            System.out.println("Table Produits created successfully.");
-
-
-            String sql3 = "CREATE TABLE IF NOT EXISTS Catalogue (" +
-                    "Fournisseur INT NOT NULL," +
-                    "Produit INT NOT NULL," +
-                    "Prix DOUBLE NOT NULL," +
-                    "PRIMARY KEY (Fournisseur,Produit)," +
-                    "FOREIGN KEY(Fournisseur) REFERENCES Fournisseurs(CodeFournisseur)," +
-                    "FOREIGN KEY(Produit) REFERENCES Produits(CodeProduit)" +
-                    ")";
-            statement.executeUpdate(sql3);
-            System.out.println("Table Catalogue created successfully.");
+            statement.executeUpdate(query);
+            System.out.println("Table created successfully.");
 
         } catch (SQLException e) {
             System.out.println("Table creation failed");
@@ -72,16 +44,12 @@ public class DBOperations {
 
     /**
      * Insert into tables
+     * @param query SQL query to insert into a table
      */
-    public void insertIntoTables() {
+    public void insertIntoTables(String query) {
         try {
-            String insertData = "INSERT INTO Fournisseurs (CodeFournisseur, Nom, Adresse, Ville) VALUES " +
-                    "('001', 'Dubois', 'Rue Paul Bert', 'Paris'), " +
-                    "('002', 'Dupont', 'Avenue Générale De Gaulle', 'Toulouse')," +
-                    "('010', 'Cuissart', 'Rue Vaugirard', 'Lyon')";
-
-            statement.executeUpdate(insertData);
-            System.out.println("Data inserted into Fournisseurs table.");
+            statement.executeUpdate(query);
+            System.out.println("Data inserted into table.");
         } catch (SQLException e) {
             System.out.println("Insertion failed");
             e.printStackTrace();
@@ -90,12 +58,11 @@ public class DBOperations {
 
     /**
      * Delete a row in the table
+     * @param query SQL query to delete from a table
      */
-    public void deleteFromTable() {
+    public void deleteFromTable(String query) {
         try {
-            String deleteData = "DELETE FROM Produits WHERE Marque = 'peugeot'";
-
-            statement.executeUpdate(deleteData);
+            statement.executeUpdate(query);
             System.out.println("Data deleted from Produits table.");
         } catch (SQLException e) {
             System.out.println("Deletion failed");
